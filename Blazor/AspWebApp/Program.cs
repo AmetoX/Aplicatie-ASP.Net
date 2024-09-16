@@ -1,4 +1,6 @@
 using AspWebApp.Components;
+using DataLibrary;
+using Microsoft.EntityFrameworkCore;
 
 namespace AspWebApp
 {
@@ -11,8 +13,14 @@ namespace AspWebApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+            //builder.Services.AddSingleton<DataAccess>();
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+			{
+				options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"));
+			});
 
-            var app = builder.Build();
+
+			var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
