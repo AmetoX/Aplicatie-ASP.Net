@@ -13,10 +13,11 @@ namespace AspWebApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
-            //builder.Services.AddSingleton<DataAccess>();
-            builder.Services.AddDbContext<DatabaseContext>(options =>
+			//builder.Services.AddSingleton<DataAccess>();
+			builder.Services.AddDbContext<DatabaseContext>(options =>
 			{
-				options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"));
+				Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
+				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 			});
 
 
