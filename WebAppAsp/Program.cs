@@ -5,10 +5,12 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace WebAppAsp
 {
-    //Install-Package MySql.Data.EntityFrameworkCore
-    //Install-Package Pomelo.EntityFrameworkCore.MySql
-    //Install-Package Microsoft.EntityFrameworkCore.Tools
-    public class Program
+	//Install-Package MySql.Data.EntityFrameworkCore
+	//Install-Package Pomelo.EntityFrameworkCore.MySql
+	//Install-Package Microsoft.EntityFrameworkCore.Tools
+	//Add-Migration InitialCreate
+	//Update-Database
+	public class Program
     {
         public static void Main(string[] args)
         {
