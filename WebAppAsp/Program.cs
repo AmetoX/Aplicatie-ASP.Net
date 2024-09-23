@@ -22,8 +22,8 @@ namespace WebAppAsp
             builder.Services.AddDbContext<BookShelfContext>(options =>
             options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
             ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")),
-            mysqlOptions =>
-                mysqlOptions.SchemaBehavior(MySqlSchemaBehavior.Ignore) // Ignore schema
+                mysqlOptions =>
+                    mysqlOptions.SchemaBehavior(MySqlSchemaBehavior.Ignore) // Ignore schema
             ));
 
             var app = builder.Build();

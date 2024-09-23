@@ -35,6 +35,12 @@ namespace WebAppAsp.Components.DataBase
                     Id = 2,
                     Name = "Jane",
                     Password = "5678"
+                },
+                new User
+                {
+                    Id = 3,
+                    Name = "Admin",
+                    Password = "admin"
                 }
             );
 
@@ -43,13 +49,22 @@ namespace WebAppAsp.Components.DataBase
                 {
                     Id = 1,
                     Number = "1",
-                    Date = "2021-01-01"
+                    Date = "2021-02-01",
+                    GPS = "124.456.789"
                 },
                 new FisaDeLucru
                 {
                     Id = 2,
                     Number = "2",
-                    Date = "2021-01-02"
+                    Date = "2021-02-02",
+                    GPS = "987.653.321"
+                },
+                new FisaDeLucru
+                {
+                    Id = 3,
+                    Number = "3",
+                    Date = "2021-03-03",
+                    GPS = "987.624.321"
                 }
             );
         }
