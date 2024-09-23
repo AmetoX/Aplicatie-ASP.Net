@@ -1,8 +1,6 @@
-using AspWebApp.Components;
-using DataLibrary;
-using Microsoft.EntityFrameworkCore;
+using WebAppAsp.Components;
 
-namespace AspWebApp
+namespace WebAppAsp
 {
     public class Program
     {
@@ -13,15 +11,8 @@ namespace AspWebApp
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
-			//builder.Services.AddSingleton<DataAccess>();
-			builder.Services.AddDbContext<DatabaseContext>(options =>
-			{
-				Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
-				options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-			});
 
-
-			var app = builder.Build();
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
