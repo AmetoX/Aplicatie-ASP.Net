@@ -1,4 +1,7 @@
 using AplicatieASP.Components;
+using AplicatieASP.Components.DataBase;
+using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace AplicatieASP
 {
@@ -11,6 +14,14 @@ namespace AplicatieASP
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+            // Add DbContext to the services
+            builder.Services.AddDbContext<BookShelfContext>(options =>
+            options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+            ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")),
+            mysqlOptions =>
+                mysqlOptions.SchemaBehavior(MySqlSchemaBehavior.Ignore) // Ignore schema
+            ));
 
             var app = builder.Build();
 
