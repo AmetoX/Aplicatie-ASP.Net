@@ -12,6 +12,7 @@
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
+Blazor/AspWebApp/appsettings.json
 
 # Mono auto generated files
 mono_crash.*
