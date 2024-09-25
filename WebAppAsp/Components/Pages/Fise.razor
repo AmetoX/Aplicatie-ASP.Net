@@ -1,8 +1,50 @@
 ﻿@page "/fise"
+@using Microsoft.EntityFrameworkCore
+@using WebAppAsp.Components.DataBase
+@using WebAppAsp.Components.DataBase.Models
+
+@inject BookShelfContext DbContext
 
 <PageTitle>Fise Mentenanta</PageTitle>
 <h3>Fise</h3>
 
-@code {
+@if (fiseDeLucru == null)
+{
+    <p>Loading...</p>
+}
+else if (!fiseDeLucru.Any())
+{
+    <p>No records found.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fisa in fiseDeLucru)
+            {
+                <tr>
+                    <td>@fisa.Number</td>
+                    <td>@fisa.Date.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
+@code {
+    // A list to hold the data
+    private List<FisaDeLucru> fiseDeLucru;
+
+    // This method will run when the component is initialized
+    protected override async Task OnInitializedAsync()
+    {
+        // Load the data from the database asynchronously
+        fiseDeLucru = await DbContext.FiseDeLucru.ToListAsync();
+    }
 }

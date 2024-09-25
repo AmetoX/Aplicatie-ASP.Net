@@ -49,21 +49,21 @@ namespace WebAppAsp.Components.DataBase
                 {
                     Id = 1,
                     Number = "1",
-                    Date = "2021-02-01",
+                    Date = DateTime.Now, // Add the current date here
                     GPS = "124.456.789"
                 },
                 new FisaDeLucru
                 {
                     Id = 2,
                     Number = "2",
-                    Date = "2021-02-02",
+                    Date = DateTime.Now, // Add the current date here
                     GPS = "987.653.321"
                 },
                 new FisaDeLucru
                 {
                     Id = 3,
                     Number = "3",
-                    Date = "2021-03-03",
+                    Date = DateTime.Now, // Add the current date here
                     GPS = "987.624.321"
                 }
             );
