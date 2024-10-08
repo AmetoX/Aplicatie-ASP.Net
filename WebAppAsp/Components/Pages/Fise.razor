@@ -4,9 +4,12 @@
 @using WebAppAsp.Components.DataBase.Models
 
 @inject BookShelfContext DbContext
+@inject NavigationManager Navigation
 
 <PageTitle>Fise Mentenanta</PageTitle>
 <h3>Fise</h3>
+
+<NavLink href="crearefisa" class="btn btn-primary">Creare Fisa</NavLink>
 
 @if (fiseDeLucru == null)
 {
@@ -30,14 +33,16 @@ else
             {
                 <tr>
                     <td>@fisa.Number</td>
-                    <td>@fisa.Date.ToString("dd-MM-yyyy")</td>
+                    <td>@fisa.Date.ToString("yyyy-MM-dd")</td>
                 </tr>
             }
         </tbody>
     </table>
 }
+<button class="btn btn-primary" @onclick="Create">Creare Fisa</button>
 
 @code {
+
     // A list to hold the data
     private List<FisaDeLucru> fiseDeLucru;
 
@@ -46,5 +51,11 @@ else
     {
         // Load the data from the database asynchronously
         fiseDeLucru = await DbContext.FiseDeLucru.ToListAsync();
+    }
+
+    // Method to navigate to another page
+    private void Create()
+    {
+        Navigation.NavigateTo("/counter");  // Correct navigation to the counter page
     }
 }
