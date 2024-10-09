@@ -7,6 +7,7 @@
 @inject NavigationManager Navigation
 
 <PageTitle>Fise Mentenanta</PageTitle>
+
 <h3>Fise</h3>
 
 <NavLink href="crearefisa" class="btn btn-primary">Creare Fisa</NavLink>
@@ -39,7 +40,12 @@ else
         </tbody>
     </table>
 }
-<button class="btn btn-primary" @onclick="Create">Creare Fisa</button>
+<div>
+    <span>
+        <button class="btn btn-primary" @onclick="Create">Creare Fisa</button>
+    </span>   
+</div>
+
 
 @code {
 
@@ -56,6 +62,6 @@ else
     // Method to navigate to another page
     private void Create()
     {
-        Navigation.NavigateTo("/counter");  // Correct navigation to the counter page
+        Navigation.NavigateTo("/counter", false, false);  // Correct navigation to the counter page
     }
 }

@@ -9,6 +9,68 @@
 
 <h3>CreareFisa</h3>
 
-@code {
+<EditForm Model="@formModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
+    <div>
+        <label for="firstName">First Name:</label>
+        <InputText id="firstName" @bind-Value="formModel.FirstName" class="form-control" />
+    </div>
+
+    <div>
+        <label for="lastName">Last Name:</label>
+        <InputText id="lastName" @bind-Value="formModel.LastName" class="form-control" />
+    </div>
+
+    <div>
+        <label for="address">Address:</label>
+        <InputText id="address" @bind-Value="formModel.Address" class="form-control" />
+    </div>
+
+    <div>
+        <label for="city">City:</label>
+        <InputText id="city" @bind-Value="formModel.City" class="form-control" />
+    </div>
+
+    <div>
+        <label for="state">State:</label>
+        <InputSelect id="state" @bind-Value="formModel.State" class="form-control">
+            <option value="">Select a state</option>
+            <option value="BH">Bihor</option>
+            <option value="CJ">Cluj</option>
+            <option value="MM">Maramures</option>
+            <option value="TM">Timisoara</option>
+            <!-- Add more states as needed -->
+        </InputSelect>
+    </div>
+
+    <div>
+        <label for="zip">Zip Code:</label>
+        <InputText id="zip" @bind-Value="formModel.ZipCode" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@code {
+    private FormModel formModel = new FormModel();
+
+    private async Task HandleValidSubmit()
+    {
+        // Handle form submission, e.g., save to database
+        // await DbContext.AddAsync(formModel);
+        // await DbContext.SaveChangesAsync();
+        Navigation.NavigateTo("/");
+    }
+
+    public class FormModel
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string ZipCode { get; set; }
+    }
 }
