@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAppAsp.Components.DataBase;
 
@@ -11,9 +12,11 @@ using WebAppAsp.Components.DataBase;
 namespace WebAppAsp.Migrations
 {
     [DbContext(typeof(BookShelfContext))]
-    partial class BookShelfContextModelSnapshot : ModelSnapshot
+    [Migration("20241011124909_InitialCreate2")]
+    partial class InitialCreate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

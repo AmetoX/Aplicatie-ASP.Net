@@ -9,39 +9,42 @@
 
 <h3>CreareFisa</h3>
 
-<EditForm Model="@formModel" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@formModel" OnValidSubmit="HandleValidSubmit" FormName="CreareFisaForm">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div>
         <label for="firstName">First Name:</label>
-        <InputText id="firstName" @bind-Value="formModel.FirstName" class="form-control" />
+        <InputText id="firstName" @bind-Value="formModel.FirstName" class="form-control" autocomplete="first-name"/>
     </div>
 
     <div>
         <label for="lastName">Last Name:</label>
-        <InputText id="lastName" @bind-Value="formModel.LastName" class="form-control" />
+        <InputText id="lastName" @bind-Value="formModel.LastName" class="form-control" autocomplete="last-name"/>
     </div>
 
     <div>
         <label for="address">Address:</label>
-        <InputText id="address" @bind-Value="formModel.Address" class="form-control" />
+        <InputText id="address" @bind-Value="formModel.Address" class="form-control" autocomplete="stree-adress"/>
     </div>
 
     <div>
         <label for="city">City:</label>
-        <InputText id="city" @bind-Value="formModel.City" class="form-control" />
+        <InputSelect id="city" @bind-Value="formModel.City" class="form-control">
+            @foreach (var city in cities)
+			{
+				<option value="@city.Value">@city.Name</option>
+			})
+        </InputSelect>
     </div>
 
     <div>
         <label for="state">State:</label>
         <InputSelect id="state" @bind-Value="formModel.State" class="form-control">
-            <option value="">Select a state</option>
-            <option value="BH">Bihor</option>
-            <option value="CJ">Cluj</option>
-            <option value="MM">Maramures</option>
-            <option value="TM">Timisoara</option>
-            <!-- Add more states as needed -->
+            @foreach (var state in states)
+            {
+                <option value="@state.Value">@state.Name</option>
+            }
         </InputSelect>
     </div>
 
@@ -50,7 +53,10 @@
         <InputText id="zip" @bind-Value="formModel.ZipCode" class="form-control" />
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <div class="align-bottom accordion-body">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+    
 </EditForm>
 
 @code {
@@ -58,10 +64,29 @@
 
     private async Task HandleValidSubmit()
     {
-        // Handle form submission, e.g., save to database
-        // await DbContext.AddAsync(formModel);
-        // await DbContext.SaveChangesAsync();
-        Navigation.NavigateTo("/");
+        try
+        {
+            var newFisa = new FisaDeLucru
+                {
+                    First_Name = formModel.FirstName,
+                    Last_Name = formModel.LastName,
+                    Address = formModel.Address,
+                    City = formModel.City,
+                    State = formModel.State,
+                    Zip_Code = formModel.ZipCode,
+                    Date = DateTime.Now,
+                    GPS = "46.7712, 23.6236" // Example GPS coordinates, you can replace this with actual data
+                };
+
+            await DbContext.FiseDeLucru.AddAsync(newFisa);
+            await DbContext.SaveChangesAsync();
+            Navigation.NavigateTo("fise");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            // Optionally, log the exception or show a user-friendly message
+        }
     }
 
     public class FormModel
@@ -73,4 +98,77 @@
         public string State { get; set; }
         public string ZipCode { get; set; }
     }
+
+    private List<State> states = new List<State>
+    {
+        new State { Value = "CJ", Name = "Cluj" },
+        new State { Value = "MM", Name = "Maramures" },
+        new State { Value = "TM", Name = "Timisoara" },
+        new State { Value = "AR", Name = "Arad" },
+        new State { Value = "AB", Name = "Alba" },
+        new State { Value = "BC", Name = "Bacau" },
+        new State { Value = "BH", Name = "Bihor" },
+        new State { Value = "BN", Name = "Bistrita-Nasaud" },
+        new State { Value = "BR", Name = "Braila" },
+        new State { Value = "BT", Name = "Botosani" },
+        new State { Value = "BV", Name = "Brasov" },
+        new State { Value = "BZ", Name = "Buzau" },
+        new State { Value = "CS", Name = "Caras-Severin" },
+        new State { Value = "CL", Name = "Calarasi" },
+        new State { Value = "CT", Name = "Constanta" },
+        new State { Value = "CV", Name = "Covasna" },
+        new State { Value = "DB", Name = "Dambovita" },
+        new State { Value = "DJ", Name = "Dolj" },
+        new State { Value = "GL", Name = "Galati" },
+        new State { Value = "GR", Name = "Giurgiu" },
+        new State { Value = "GJ", Name = "Gorj" },
+        new State { Value = "HR", Name = "Harghita" },
+        new State { Value = "HD", Name = "Hunedoara" },
+        new State { Value = "IL", Name = "Ialomita" },
+        new State { Value = "IS", Name = "Iasi" },
+        new State { Value = "IF", Name = "Ilfov" },
+        new State { Value = "MM", Name = "Maramures" },
+        new State { Value = "MH", Name = "Mehedinti" }   
+    };
+    public class State
+    {
+        public string Value { get; set; }
+        public string Name { get; set; }
+    }
+
+    private List<City> cities = new List<City>
+    {
+        new City { Value = "Cluj", Name = "Cluj" },
+        new City { Value = "Oradea", Name = "Oradea" },
+        new City { Value = "Dej", Name = "Dej" },
+        new City { Value = "Turda", Name = "Turda" },
+        new City { Value = "Gherla", Name = "Gherla" },
+        new City { Value = "Huedin", Name = "Huedin" },
+        new City { Value = "Campia Turzii", Name = "Campia Turzii" },
+        new City { Value = "Floresti", Name = "Floresti" },
+        new City { Value = "Baciu", Name = "Baciu" },
+        new City { Value = "Apahida", Name = "Apahida" },
+        new City { Value = "Valea Ierii", Name = "Valea Ierii" },
+        new City { Value = "Savadisla", Name = "Savadisla" },
+        new City { Value = "Feleacu", Name = "Feleacu" },
+        new City { Value = "Cuzdrioara", Name = "Cuzdrioara" },
+        new City { Value = "Chinteni", Name = "Chinteni" },
+        new City { Value = "Jucu", Name = "Jucu" },
+        new City { Value = "Panticeu", Name = "Panticeu" },
+        new City { Value = "Ciurila", Name = "Ciurila" },
+        new City { Value = "Bontida", Name = "Bontida" },
+        new City { Value = "Iclod", Name = "Iclod" },
+        new City { Value = "Mociu", Name = "Mociu" },
+        new City { Value = "Ceanu Mare", Name = "Ceanu Mare" },
+        new City { Value = "Cuzdrioara", Name = "Cuzdrioara" },
+        new City { Value = "Vultureni", Name = "Vultureni" },
+        new City { Value = "Sic", Name = "Sic" },
+        new City { Value = "Dabaca", Name = "Dabaca" },
+        new City { Value = "Baciu", Name = "Baciu" }
+    };
+    public class City
+	{
+		public string Value { get; set; }
+		public string Name { get; set; }
+	}
 }
